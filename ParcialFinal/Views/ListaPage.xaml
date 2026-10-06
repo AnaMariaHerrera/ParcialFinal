@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ParcialFinal.ViewModels"
+             xmlns:model="clr-namespace:ParcialFinal.Models"
+             x:Class="ParcialFinal.Views.ListaPage"
+             x:DataType="vm:ListaViewModel"
+             Title="Lugares de Colombia">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+
+        <ActivityIndicator Grid.Row="0"
+                           IsRunning="{Binding Cargando}"
+                           IsVisible="{Binding Cargando}" />
+
+        <CollectionView Grid.Row="1"
+                        x:Name="ListaLugares"
+                        ItemsSource="{Binding Lugares}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Lugar">
+                    <Frame Margin="5" Padding="10" CornerRadius="10" BorderColor="LightGray">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference ListaLugares}, Path=BindingContext.VerDetalleCommand, x:DataType=CollectionView}"
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Nombre}" FontSize="18" FontAttributes="Bold" />
+                                <Label Text="{Binding Ciudad}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <CheckBox Grid.Column="1" IsChecked="{Binding Visitado}" IsEnabled="False" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ParcialFinal.ViewModels"
+             x:Class="ParcialFinal.Views.DetallePage"
+             x:DataType="vm:DetalleViewModel"
+             Title="Detalle">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="{Binding Lugar.Nombre}" FontSize="26" FontAttributes="Bold" />
+            <Label Text="{Binding Lugar.Ciudad}" FontSize="18" TextColor="Gray" />
+            <Label Text="{Binding Lugar.Descripcion}" FontSize="16" />
+
+            <Label Text="{Binding Lugar.Latitud, StringFormat='Latitud: {0}'}" />
+            <Label Text="{Binding Lugar.Longitud, StringFormat='Longitud: {0}'}" />
+
+            <HorizontalStackLayout>
+                <CheckBox IsChecked="{Binding Lugar.Visitado}" IsEnabled="False" />
+                <Label Text="Visitado" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <ActivityIndicator IsRunning="{Binding Cargando}" IsVisible="{Binding Cargando}" />
+
+            <Label Text="{Binding Distancia, StringFormat='Distancia: {0}'}" FontSize="16" />
+            <Button Text="Calcular distancia (GPS)" Command="{Binding CalcularDistanciaCommand}" />
+
+            <Label Text="{Binding Temperatura, StringFormat='Temperatura: {0}'}" FontSize="16" />
+            <Button Text="Consultar clima (API)" Command="{Binding ConsultarClimaCommand}" />
+
+            <Button Text="Marcar / desmarcar visitado" Command="{Binding MarcarVisitadoCommand}" />
+            <Button Text="Volver" Command="{Binding VolverCommand}" BackgroundColor="Gray" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
